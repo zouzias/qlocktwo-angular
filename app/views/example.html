@@ -1,1 +1,12 @@
-<p>This is the example view.</p>
+<p>Preliminary example of letter Grid</p>
+
+<table class="table table-bordered">
+    <tbody>
+        <tr ng-repeat="row in example.grid">
+            <td ng-repeat="c in row track by $index">
+            <div ng-show="c.selected">
+              {{c.char}}
+            </div>
+            </td>
+        </tr>
+</table>

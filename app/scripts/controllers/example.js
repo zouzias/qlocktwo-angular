@@ -8,10 +8,6 @@
  * Controller of the qlocktwoAngularApp
  */
 angular.module('qlocktwoAngularApp')
-  .controller('ExampleCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('ExampleCtrl', function (letterGridService) {
+    this.grid = letterGridService.grid;
   });
