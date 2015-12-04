@@ -12,3 +12,7 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+## See also
+
+A project for generating letter grids: [Qlocktwo-grid-generator](https://github.com/zouzias/qlocktwo-grid-generator.git)
