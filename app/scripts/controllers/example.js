@@ -11,6 +11,8 @@ angular.module('qlocktwoAngularApp')
   .controller('ExampleCtrl', function ($scope, letterGridService, CurrentTimeService) {
 
     $scope.grid = letterGridService.grid;
+    var numRows = $scope.grid.length;
+    var numCols = $scope.grid[0].length;
 
     var hours = CurrentTimeService.hours;
     var minutes = CurrentTimeService.minutes;
@@ -18,16 +20,9 @@ angular.module('qlocktwoAngularApp')
     $scope.currentHour = hours[CurrentTimeService.indexHour];
     $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
 
-    $scope.findWord = function(searchGrid, word){
-      var locations = searchGrid.map( function (row, i) {
-        var col = row.indexOf(word.toUpperCase());
-
-        return {row: i, col: col, sz: word.length};
-      }).filter(function(d){return d.col !== -1;});
-
-      return locations;
-    };
-
+    /**
+    * Updates state to next time
+    */
     $scope.nextTime = function(){
       if ( CurrentTimeService.indexMinute < minutes.length - 1){
         CurrentTimeService.indexMinute = CurrentTimeService.indexMinute + 1;
@@ -45,6 +40,26 @@ angular.module('qlocktwoAngularApp')
       $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
     };
 
+    $scope.previousTime = function(){
+      if ( CurrentTimeService.indexMinute > 0){
+        CurrentTimeService.indexMinute = CurrentTimeService.indexMinute - 1;
+      }
+      else if (CurrentTimeService.indexHour > 0){
+        CurrentTimeService.indexMinute = 0;
+        CurrentTimeService.indexHour = CurrentTimeService.indexHour - 1;
+      }
+      else{
+        CurrentTimeService.indexMinute = minutes.length - 1;
+        CurrentTimeService.indexHour = hours.length - 1;
+      }
+
+      $scope.currentHour = hours[CurrentTimeService.indexHour];
+      $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
+    };
+
+    /**
+    * Resets letter grid
+    */
     $scope.resetGrid = function(){
       letterGridService.grid = letterGridService.grid.map(function(d){
         return d.map(function(l){
@@ -55,30 +70,70 @@ angular.module('qlocktwoAngularApp')
       $scope.grid = letterGridService.grid;
     };
 
-    $scope.highlightWord = function(word){
-      var locations = $scope.findWord(letterGridService.searchGrid, word);
+    $scope.findWord = function(searchGrid, word, fromRow, fromCol){
+      var locations = searchGrid.map( function (row, i) {
+                                  var col = row.indexOf(word.toUpperCase());
+                                  return {row: i, col: col, sz: word.length};
+                                }).filter(function(d){
+                                    return d.col !== -1;
+                                  })
+                                  .filter(function(d){
+                                    if ( d.row > fromRow){
+                                      return true;
+                                    }
+                                    else if (d.row == fromRow && d.col >= fromCol){
+                                      return true;
+                                    }
+
+                                    return false;
+                                  });
+
+      return locations;
+    };
+
+    /**
+    *  Highlights a single word
+    */
+    $scope.highlightWord = function(word, fromRow, fromCol){
+      var locations = $scope.findWord(letterGridService.searchGrid, word, fromRow, fromCol);
       console.log('Found ' + locations.length + ' locations');
 
-      // TODO: rewrite this
-      for ( var i = 0 ; i < letterGridService.grid.length; i++){
-        for( var j = 0; j < letterGridService.grid[0].length; j++){
-          for ( var k = 0; k < locations.length; k++){
-            if ( locations[k].row === i && locations[k].col <= j && locations[k].col + locations[k].sz > j){
-                letterGridService.grid[i][j].selected = true;
-              }
-          }
+      locations.forEach(function(d){
+        console.log('Row: ' + d.row + ' , ' + d.col);
+      });
+
+
+      if ( locations.length > 0){
+        var foundRow = locations[0].row;
+        var foundCol = locations[0].col;
+        var sz = locations[0].sz;
+
+        for( var j = 0; j < sz; j++){
+          letterGridService.grid[foundRow][foundCol + j].selected = true;
+        }
+
+        // Update grid
+        $scope.grid = letterGridService.grid;
+
+        // Check if the column index overflowed
+        if ( foundCol + sz >= numCols ){
+          return {row: foundRow + 1, col: 0};
+        }
+        else{
+          return {row: foundRow, col: foundCol + sz};
         }
       }
 
-      $scope.grid = letterGridService.grid;
+      return {row: fromRow, col: fromCol};
     };
 
     $scope.previous = function(){
       console.log('Previous button pressed');
 
       $scope.resetGrid();
-      $scope.highlightWord('clock');
-      $scope.highlightWord('two');
+      $scope.previousTime();
+      var loc = $scope.highlightWord($scope.currentHour, 0, 0);
+      $scope.highlightWord($scope.currentMinute, loc.row, loc.col);
     };
 
     $scope.next = function(){
@@ -86,7 +141,7 @@ angular.module('qlocktwoAngularApp')
 
       $scope.resetGrid();
       $scope.nextTime();
-      $scope.highlightWord($scope.currentHour);
-      $scope.highlightWord($scope.currentMinute);
+      var loc = $scope.highlightWord($scope.currentHour, 0, 0);
+      $scope.highlightWord($scope.currentMinute, loc.row, loc.col);
     };
   });
