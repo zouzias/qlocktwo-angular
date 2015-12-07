@@ -5,9 +5,8 @@
   padding: 0.2em 0;
 }
 
-* {
+body {
   padding: 0;
-  background: black !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
