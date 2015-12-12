@@ -74,20 +74,10 @@ angular.module('qlocktwoAngularApp')
       var locations = searchGrid.map( function (row, i) {
                                   var col = row.indexOf(word.toUpperCase());
                                   return {row: i, col: col, sz: word.length};
-                                }).filter(function(d){
-                                    return d.col !== -1;
-                                  })
+                                }).filter(function(d){return d.col !== -1;})
                                   .filter(function(d){
-                                    if ( d.row > fromRow){
-                                      return true;
-                                    }
-                                    else if (d.row == fromRow && d.col >= fromCol){
-                                      return true;
-                                    }
-
-                                    return false;
+                                    return d.row > fromRow || (d.row == fromRow && d.col >= fromCol);
                                   });
-
       return locations;
     };
 
@@ -96,12 +86,6 @@ angular.module('qlocktwoAngularApp')
     */
     $scope.highlightWord = function(word, fromRow, fromCol){
       var locations = $scope.findWord(letterGridService.searchGrid, word, fromRow, fromCol);
-      console.log('Found ' + locations.length + ' locations');
-
-      locations.forEach(function(d){
-        console.log('Row: ' + d.row + ' , ' + d.col);
-      });
-
 
       if ( locations.length > 0){
         var foundRow = locations[0].row;
