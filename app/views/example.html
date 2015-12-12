@@ -6,7 +6,7 @@
     <tbody>
         <tr ng-repeat="row in grid">
             <td ng-repeat="c in row track by $index">
-              <div ng-style="{opacity : (c.selected && '1') || '0.25'}">
+              <div style="font-size: 28px" ng-style="{opacity : (c.selected && '1') || '0.25'}">
                 {{c.char}}
               </div>
             </td>
