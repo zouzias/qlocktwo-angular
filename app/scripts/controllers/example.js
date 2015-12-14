@@ -14,45 +14,25 @@ angular.module('qlocktwoAngularApp')
     var numRows = $scope.grid.length;
     var numCols = $scope.grid[0].length;
 
-    var hours = CurrentTimeService.hours;
-    var minutes = CurrentTimeService.minutes;
+    var hours = CurrentTimeService.hours.map(function(d){return d.word;});
+    var minutes = CurrentTimeService.minutes.map(function(d){return d.word;});
 
     $scope.currentHour = hours[CurrentTimeService.indexHour];
     $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
 
+    $scope.currentTime = {now: CurrentTimeService.getCurrentTime()};
+
+    $scope.$watch(function(){
+      return CurrentTimeService.now;
+    }, function(newValue, oldValue){
+      console.log('Update currentTime?');
+      $scope.currentTime.now = newValue;
+    });
+
     /**
-    * Updates state to next time
+    * Update letter time
     */
-    $scope.nextTime = function(){
-      if ( CurrentTimeService.indexMinute < minutes.length - 1){
-        CurrentTimeService.indexMinute = CurrentTimeService.indexMinute + 1;
-      }
-      else if (CurrentTimeService.indexHour < hours.length -1){
-        CurrentTimeService.indexMinute = 0;
-        CurrentTimeService.indexHour = CurrentTimeService.indexHour + 1;
-      }
-      else{
-        CurrentTimeService.indexMinute = 0;
-        CurrentTimeService.indexHour = 0;
-      }
-
-      $scope.currentHour = hours[CurrentTimeService.indexHour];
-      $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
-    };
-
-    $scope.previousTime = function(){
-      if ( CurrentTimeService.indexMinute > 0){
-        CurrentTimeService.indexMinute = CurrentTimeService.indexMinute - 1;
-      }
-      else if (CurrentTimeService.indexHour > 0){
-        CurrentTimeService.indexMinute = 0;
-        CurrentTimeService.indexHour = CurrentTimeService.indexHour - 1;
-      }
-      else{
-        CurrentTimeService.indexMinute = minutes.length - 1;
-        CurrentTimeService.indexHour = hours.length - 1;
-      }
-
+    $scope.updateTime = function(){
       $scope.currentHour = hours[CurrentTimeService.indexHour];
       $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
     };
@@ -70,19 +50,31 @@ angular.module('qlocktwoAngularApp')
       $scope.grid = letterGridService.grid;
     };
 
+    /**
+    *
+    * searchGrid:
+    * word: Word to search on letter grid
+    * fromRow: Row index to start the search
+    * fromCol: Column index to start search
+    *
+    * Return a list
+    */
     $scope.findWord = function(searchGrid, word, fromRow, fromCol){
       var locations = searchGrid.map( function (row, i) {
                                   var col = row.indexOf(word.toUpperCase());
                                   return {row: i, col: col, sz: word.length};
-                                }).filter(function(d){return d.col !== -1;})
-                                  .filter(function(d){
+                                }).filter( function(d){
+                                  return d.col !== -1;  // Remove not found rows
+                                }).filter( function(d){
                                     return d.row > fromRow || (d.row == fromRow && d.col >= fromCol);
-                                  });
+                                });
       return locations;
     };
 
     /**
-    *  Highlights a single word
+    *  Highlights a single word from a (fromRow, fromCol) location
+    *
+    * Returns a new {row: rowIndex, col: colIndex} to continue highlight search
     */
     $scope.highlightWord = function(word, fromRow, fromCol){
       var locations = $scope.findWord(letterGridService.searchGrid, word, fromRow, fromCol);
@@ -114,8 +106,14 @@ angular.module('qlocktwoAngularApp')
     $scope.previous = function(){
       console.log('Previous button pressed');
 
+      // Reset letter grid
       $scope.resetGrid();
-      $scope.previousTime();
+
+      // Previous time
+      CurrentTimeService.previousTime();
+      $scope.updateTime();
+
+      // Highlight letter grid
       var loc = $scope.highlightWord($scope.currentHour, 0, 0);
       $scope.highlightWord($scope.currentMinute, loc.row, loc.col);
     };
@@ -123,8 +121,14 @@ angular.module('qlocktwoAngularApp')
     $scope.next = function(){
       console.log('Next button pressed');
 
+      // Reset Grid
       $scope.resetGrid();
-      $scope.nextTime();
+
+      // Next time
+      CurrentTimeService.nextTime();
+      $scope.updateTime();
+
+      // Highlight phrase on letter grid
       var loc = $scope.highlightWord($scope.currentHour, 0, 0);
       $scope.highlightWord($scope.currentMinute, loc.row, loc.col);
     };
