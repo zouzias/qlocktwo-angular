@@ -24,12 +24,12 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/example', {
-        templateUrl: 'views/example.html',
-        controller: 'ExampleCtrl',
-        controllerAs: 'example'
+      .when('/qlocktwo', {
+        templateUrl: 'views/qlocktwo.html',
+        controller: 'QlocktwoCtrl',
+        controllerAs: 'qlocktwo'
       })
       .otherwise({
-        redirectTo: '/example'
+        redirectTo: '/qlocktwo'
       });
   });
