@@ -11,15 +11,15 @@ angular.module('qlocktwoAngularApp')
   .controller('QlocktwoCtrl', function ($rootScope, $scope, letterGridService, CurrentTimeService) {
 
     $scope.grid = letterGridService.grid;
-    var numRows = $scope.grid.length;
-    var numCols = $scope.grid[0].length;
+    var numRows = letterGridService.numRows;
+    var numCols = letterGridService.numCols;
 
     var hours = CurrentTimeService.hours.map(function(d){return d.word;});
     var minutes = CurrentTimeService.minutes.map(function(d){return d.word;});
 
+    // Initialize state
     $scope.currentHour = hours[CurrentTimeService.indexHour];
     $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
-
     $scope.currentTime = CurrentTimeService.now;
 
     // Listen for timer updates
@@ -92,8 +92,7 @@ angular.module('qlocktwoAngularApp')
           letterGridService.grid[foundRow][foundCol + j].selected = true;
         }
 
-        // Update grid
-        $scope.grid = letterGridService.grid;
+        $scope.grid = letterGridService.grid; // Update grid
 
         // Check if the column index overflowed
         if ( foundCol + sz >= numCols ){
@@ -108,13 +107,9 @@ angular.module('qlocktwoAngularApp')
     };
 
     $scope.previous = function(){
-      console.log('Previous button pressed');
+      $scope.resetGrid();   // Reset letter grid
 
-      // Reset letter grid
-      $scope.resetGrid();
-
-      // Previous time
-      CurrentTimeService.previousTime();
+      CurrentTimeService.previousTime();  // Previous time
       $scope.updateTime();
 
       // Highlight letter grid
@@ -123,13 +118,9 @@ angular.module('qlocktwoAngularApp')
     };
 
     $scope.next = function(){
-      console.log('Next button pressed');
+      $scope.resetGrid(); // Reset Grid
 
-      // Reset Grid
-      $scope.resetGrid();
-
-      // Next time
-      CurrentTimeService.nextTime();
+      CurrentTimeService.nextTime();  // Next time
       $scope.updateTime();
 
       // Highlight phrase on letter grid
