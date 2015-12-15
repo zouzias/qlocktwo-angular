@@ -8,7 +8,7 @@
  * Service in the qlocktwoAngularApp.
  */
 angular.module('qlocktwoAngularApp')
-  .service('CurrentTimeService', function () {
+  .service('CurrentTimeService', function ($rootScope) {
 
     var hours = [{hour: 1, word: 'one'},
                  {hour: 2, word: 'two'},
@@ -36,18 +36,15 @@ angular.module('qlocktwoAngularApp')
 
     currentTimeState.updateTime = function (){
       currentTimeState.now = new Date();
+      $rootScope.$emit('TIME_UPDATED');
     }
 
     currentTimeState.updateLater = function() {
         setTimeout(function() {
           console.log('Time state updated...' + currentTimeState.now );
-          currentTimeState.updateTime(); // update DOM
+          currentTimeState.updateTime(); // update state
           currentTimeState.updateLater(); // schedule another update
-        }, 1000);
-    }
-
-    currentTimeState.getCurrentTime = function(){
-      return currentTimeState.now;
+        }, 3000);
     }
 
     /**
@@ -88,6 +85,7 @@ angular.module('qlocktwoAngularApp')
       }
     };
 
+    // Initiate timer
     currentTimeState.updateLater();
 
     return currentTimeState;

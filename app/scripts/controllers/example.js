@@ -8,7 +8,7 @@
  * Controller of the qlocktwoAngularApp
  */
 angular.module('qlocktwoAngularApp')
-  .controller('ExampleCtrl', function ($scope, letterGridService, CurrentTimeService) {
+  .controller('ExampleCtrl', function ($rootScope, $scope, letterGridService, CurrentTimeService) {
 
     $scope.grid = letterGridService.grid;
     var numRows = $scope.grid.length;
@@ -20,13 +20,17 @@ angular.module('qlocktwoAngularApp')
     $scope.currentHour = hours[CurrentTimeService.indexHour];
     $scope.currentMinute = minutes[CurrentTimeService.indexMinute];
 
-    $scope.currentTime = {now: CurrentTimeService.getCurrentTime()};
+    $scope.currentTime = CurrentTimeService.now;
 
-    $scope.$watch(function(){
-      return CurrentTimeService.now;
-    }, function(newValue, oldValue){
-      console.log('Update currentTime?');
-      $scope.currentTime.now = newValue;
+    // Listen for timer updates
+    $rootScope.$on('TIME_UPDATED', function(){
+        console.log('Event got on controller');
+        $scope.$apply(function(){
+          $scope.currentTime = CurrentTimeService.now;
+        });
+
+        $scope.next();
+        console.log('Updated time is ' + $scope.currentTime);
     });
 
     /**
