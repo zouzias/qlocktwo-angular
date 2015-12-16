@@ -8,30 +8,10 @@
  * Service in the qlocktwoAngularApp.
  */
 angular.module('qlocktwoAngularApp')
-  .service('CurrentTimeService', function ($rootScope) {
+  .service('CurrentTimeService', function ($rootScope, TimeToPhrases) {
 
-    var hours = [{hour: 1, word: 'one'},
-                 {hour: 2, word: 'two'},
-                 {hour: 3, word: 'three'},
-                 {hour: 4, word: 'four'},
-                 {hour: 5, word: 'five'},
-                 {hour: 6, word: 'six'},
-                 {hour: 7, word: 'seven'},
-                 {hour: 8, word: 'eight'},
-                 {hour: 9, word: 'nine'},
-                 {hour: 10, word: 'ten'},
-                 {hour: 11, word: 'eleven'},
-                 {hour: 12, word: 'twelve'}];
-
-    var minutes = [{minute: 0, word: 'clock'},
-                  {minute: 5, word: 'five'},
-                  {minute: 10, word: 'ten'},
-                  {minute: 15, word: 'fifteen'},
-                  {minute: 20, word: 'twenty'},
-                  {minute: 30, word: 'thirty'},
-                  {minute: 40, word: 'forty'},
-                  {minute: 50, word: 'fifty'}];
-
+    var minutes = TimeToPhrases.minutes;
+    var hours = TimeToPhrases.hours;
     var currentTimeState = {now: new Date(), indexHour: 0, indexMinute: 0, hours: hours, minutes: minutes};
 
     currentTimeState.updateTime = function (){
