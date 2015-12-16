@@ -8,11 +8,11 @@
  * Controller of the qlocktwoAngularApp
  */
 angular.module('qlocktwoAngularApp')
-  .controller('QlocktwoCtrl', function ($rootScope, $scope, letterGridService, CurrentTimeService) {
+  .controller('QlocktwoCtrl', function ($rootScope, $scope, LetterGridService, CurrentTimeService) {
 
-    $scope.grid = letterGridService.grid;
-    var numRows = letterGridService.numRows;
-    var numCols = letterGridService.numCols;
+    $scope.grid = LetterGridService.grid;
+    var numRows = LetterGridService.numRows;
+    var numCols = LetterGridService.numCols;
 
     var hours = CurrentTimeService.hours.map(function(d){return d.word;});
     var minutes = CurrentTimeService.minutes.map(function(d){return d.word;});
@@ -45,13 +45,13 @@ angular.module('qlocktwoAngularApp')
     * Resets letter grid
     */
     $scope.resetGrid = function(){
-      letterGridService.grid = letterGridService.grid.map(function(d){
+      LetterGridService.grid = LetterGridService.grid.map(function(d){
         return d.map(function(l){
           return {char: l.char, selected: false};
         })
       })
 
-      $scope.grid = letterGridService.grid;
+      $scope.grid = LetterGridService.grid;
     };
 
     /**
@@ -81,7 +81,7 @@ angular.module('qlocktwoAngularApp')
     * Returns a new {row: rowIndex, col: colIndex} to continue highlight search
     */
     $scope.highlightWord = function(word, fromRow, fromCol){
-      var locations = $scope.findWord(letterGridService.searchGrid, word, fromRow, fromCol);
+      var locations = $scope.findWord(LetterGridService.searchGrid, word, fromRow, fromCol);
 
       if ( locations.length > 0){
         var foundRow = locations[0].row;
@@ -89,10 +89,10 @@ angular.module('qlocktwoAngularApp')
         var sz = locations[0].sz;
 
         for( var j = 0; j < sz; j++){
-          letterGridService.grid[foundRow][foundCol + j].selected = true;
+          LetterGridService.grid[foundRow][foundCol + j].selected = true;
         }
 
-        $scope.grid = letterGridService.grid; // Update grid
+        $scope.grid = LetterGridService.grid; // Update grid
 
         // Check if the column index overflowed
         if ( foundCol + sz >= numCols ){
