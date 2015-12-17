@@ -10,43 +10,56 @@
 angular.module('qlocktwoAngularApp')
   .service('CurrentTimeService', function ($rootScope, TimeToPhrases) {
 
+    /** Update time every 10 seconds */
+    var timeout = 10000;
+
     var minutes = TimeToPhrases.minutes;
     var hours = TimeToPhrases.hours;
     var currentTimeState = {now: new Date(), indexHour: 0, indexMinute: 0, hours: hours, minutes: minutes};
 
+    /**
+     * Emit event to qlocktwo controller
+     */
     currentTimeState.updateTime = function (){
       currentTimeState.now = new Date();
       $rootScope.$emit('TIME_UPDATED');
     };
 
+    /**
+     * Recursively call updateTime()
+     */
     currentTimeState.updateLater = function() {
         setTimeout(function() {
           console.log('Time state updated...' + currentTimeState.now );
           currentTimeState.updateTime(); // update state
           currentTimeState.updateLater(); // schedule another update
-        }, 3000);
+        }, timeout);
     };
 
     /**
-    * Updates state to next time
-    */
+     * Updates state to next time
+     */
     currentTimeState.nextTime = function(){
+      // Increase minute, else increase hour and zero minute, otherwise zero hour and minute
       if ( currentTimeState.indexMinute < minutes.length - 1){
         // Increase minute index
         currentTimeState.indexMinute = currentTimeState.indexMinute + 1;
       }
       else if (currentTimeState.indexHour < hours.length -1){
-        // Decrease hour and zero minutes
+        // Increase hour and zero minutes
         currentTimeState.indexMinute = 0;
         currentTimeState.indexHour = currentTimeState.indexHour + 1;
       }
       else{
         // Overflow hour and minute to zeroes
-        currentTimeState.indexMinute = 0;
         currentTimeState.indexHour = 0;
+        currentTimeState.indexMinute = 0;
       }
     };
 
+    /**
+     * Update state to previous time
+     */
     currentTimeState.previousTime = function(){
       if ( currentTimeState.indexMinute > 0){
         // Decrease minute index
