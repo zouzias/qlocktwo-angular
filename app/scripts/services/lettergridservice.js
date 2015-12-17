@@ -16,7 +16,7 @@ angular.module('qlocktwoAngularApp')
     var numRows = grid.length;
     var numCols = grid[0].length;
 
-    // Convert to array of arrays
+    // Convert grid to array of arrays and select random cells
     var finalGrid = grid.map(function(row){
       return row.split('')
                 .map(function(d){
