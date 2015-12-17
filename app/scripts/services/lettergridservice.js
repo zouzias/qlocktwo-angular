@@ -18,8 +18,10 @@ angular.module('qlocktwoAngularApp')
 
     // Convert to array of arrays
     var finalGrid = grid.map(function(row){
-      var chars = row.split('').map(function(d){return {char: d, selected: Math.random() > 0.5};});
-      return chars;
+      return row.split('')
+                .map(function(d){
+                  return {char: d, selected: Math.random() > 0.5};
+                });
     });
 
     return {searchGrid: grid, grid: finalGrid, numRows: numRows, numCols: numCols};

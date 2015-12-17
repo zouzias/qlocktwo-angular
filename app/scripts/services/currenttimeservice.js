@@ -17,7 +17,7 @@ angular.module('qlocktwoAngularApp')
     currentTimeState.updateTime = function (){
       currentTimeState.now = new Date();
       $rootScope.$emit('TIME_UPDATED');
-    }
+    };
 
     currentTimeState.updateLater = function() {
         setTimeout(function() {
@@ -25,7 +25,7 @@ angular.module('qlocktwoAngularApp')
           currentTimeState.updateTime(); // update state
           currentTimeState.updateLater(); // schedule another update
         }, 3000);
-    }
+    };
 
     /**
     * Updates state to next time
