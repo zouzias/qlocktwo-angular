@@ -31,6 +31,17 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    'release-it': {
+	options: {
+		pkgFiles: ['package.json'],
+		commitMessage: 'Release %s',
+		tagName: '%s',
+		tagAnnotation: 'Release %s',
+		buildCommand: false
+	}
+     },
+
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
