@@ -4,11 +4,11 @@
     {{currentTime | date:'medium'}}
   </div>
   -->
-  <table class="table table-responsive">
+  <table class="table table-responsive fill">
       <tbody>
           <tr ng-repeat="row in grid">
               <td ng-repeat="c in row track by $index">
-                <div class="lettergrid text-center" ng-style="{opacity : (c.selected && '1') || '0.25'}">
+                <div class="text-center letter-font" ng-style="{opacity : (c.selected && '1') || '0.15'}">
                   {{c.char}}
                 </div>
               </td>
