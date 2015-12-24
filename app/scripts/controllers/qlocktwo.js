@@ -129,4 +129,8 @@ angular.module('qlocktwoAngularApp')
         return {row: foundRow, col: foundCol + sz};
       }
     };
+
+    // Update time now
+    $scope.currentTime = CurrentTimeService.now;
+    $scope.updateTimePhrases();
   });
