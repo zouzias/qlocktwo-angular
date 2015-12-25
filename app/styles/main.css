@@ -7,7 +7,7 @@
 
 html, body {
   padding: 0;
-  height: 90%;
+  height: 95%;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -86,7 +86,7 @@ html, body {
 }
 
 .letter-font {
-  font-size: 16px;
+  font-size: 28px;
   font-weight: bold;
   font-family: "Helvetica Neue Light";
   max-font-size: 38px;
