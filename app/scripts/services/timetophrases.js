@@ -1,14 +1,13 @@
 'use strict';
 
 /**
- * Contains a mapping from time to time phrases, i.e., 7:30 corresponds to
- * "SEVEN", "THIRTY". You can update this to your favourite language. Note that
- * you must also update the content of the LetterGridService
  * @ngdoc service
  * @name qlocktwoAngularApp.TimeToPhrases
  * @description
  * # TimeToPhrases
- * Service in the qlocktwoAngularApp.
+ * Service in the qlocktwoAngularApp. Contains a mapping from time to time phrases, i.e., 7:30 corresponds to
+ * "SEVEN", "THIRTY". You can update this to your favourite language. Note that
+ * you must also update the content of the LetterGridService
  */
 angular.module('qlocktwoAngularApp')
   .service('TimeToPhrases', function () {

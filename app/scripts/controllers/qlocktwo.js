@@ -36,9 +36,6 @@ angular.module('qlocktwoAngularApp')
       var currentHour = $scope.currentTime.getHours();
       var currentMinute = $scope.currentTime.getMinutes();
 
-      //console.log('Hour: ' + currentHour)
-      //console.log('Minute: ' + currentMinute)
-
       $scope.currentHour = CurrentTimeService.hours.filter(function(d) {
         return d.hour === currentHour;
       }).map(function(d){return d.word;}).shift();
@@ -48,16 +45,12 @@ angular.module('qlocktwoAngularApp')
         return d.start <= currentMinute && currentMinute <= d.end;
       }).map(function(d){return d.word;}).shift();
 
-      //console.dir($scope.currentHour);
-      //console.dir($scope.currentMinute);
-
       $scope.resetGrid(); // Reset Grid
 
       // Highlight phrase on letter grid
       var loc = $scope.highlightWord($scope.currentHour, 0, 0);
       $scope.highlightWord($scope.currentMinute, loc.row, loc.col);
     };
-
 
     /**
     * Resets letter grid

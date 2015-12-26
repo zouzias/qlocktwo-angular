@@ -1,15 +1,16 @@
 'use strict';
 
 /**
+ *
  * @ngdoc service
  * @name qlocktwoAngularApp.letterGridService
  * @description
  * # letterGridService
- * Service in the qlocktwoAngularApp.
+ * Service in the qlocktwoAngularApp. Letter grid model. Contains the state of the letter grid, i.e., which cells are highlighted, etc
  */
 angular.module('qlocktwoAngularApp')
   .service('LetterGridService', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+
     var grid = ['NSEVENFOURC', 'FELEVENOTWO', 'TWELVEFIVEV', 'TEIGHTENONE', 'TNINETHREEL',
     'SIXHALFIFTY', 'EFORTYYPAST', 'OFTHIRTYTEN', 'TOTWENTYSIX', 'TWCLOCKFIVE', 'FIFTEENTONE'];
 

@@ -5,7 +5,7 @@
  * @name qlocktwoAngularApp.CurrentTimeService
  * @description
  * # CurrentTimeService
- * Service in the qlocktwoAngularApp.
+ * Service in the qlocktwoAngularApp. Current time service. Fire up every 10 seconds to update the state of the letter grid
  */
 angular.module('qlocktwoAngularApp')
   .service('CurrentTimeService', function ($rootScope, TimeToPhrases) {
