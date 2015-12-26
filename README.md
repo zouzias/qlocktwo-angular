@@ -1,6 +1,6 @@
 ## qlocktwo-angular
 
-A [Qlocktwo](http://www.qlocktwo.com) front end in Angular that displays time with English words.
+A [Qlocktwo](http://www.qlocktwo.com) front end in [Angular](https://angularjs.org) that displays current time using English words.
 
 ## Build & development
 
