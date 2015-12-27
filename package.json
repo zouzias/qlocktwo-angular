@@ -8,7 +8,7 @@
     "qlocktwo"
   ],
   "repository": "https://github.com/zouzias/qlocktwo-angular.git",
-  "homepage": "http://zouzias.org/",
+  "homepage": "http://www.zouzias.org/",
   "author": "Anastasios Zouzias <zouzias@gmail.com>",
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
