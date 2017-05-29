@@ -21,14 +21,14 @@ angular.module('qlocktwoAngularApp')
     $scope.currentTime = CurrentTimeService.now;
 
     // Listen for timer updates
-    $rootScope.$on('TIME_UPDATED', function(){
-        console.log('Event got on controller');
-        $scope.$apply(function(){
-          $scope.currentTime = CurrentTimeService.now;
-        });
+    $rootScope.$on('TIME_UPDATED', function() {
+      console.log('Event got on controller');
+      $scope.$apply(function(){
+        $scope.currentTime = CurrentTimeService.now;
+      });
 
-        $scope.updateTimePhrases();
-        console.log('Updated time is ' + $scope.currentTime);
+      $scope.updateTimePhrases();
+      console.log('Updated time is ' + $scope.currentTime);
     });
 
     $scope.updateTimePhrases = function(){
@@ -75,13 +75,13 @@ angular.module('qlocktwoAngularApp')
        * @returns {*} Array of objects: {row: XXX, col: XXX, sz: XXX} containing locations of found locations
        */
     $scope.findWord = function(searchGrid, word, fromRow, fromCol){
-      var locations = searchGrid.map( function (row, i) {
+      var locations = searchGrid.map(function(row, i) {
                                   var col = row.indexOf(word.toUpperCase());
                                   return {row: i, col: col, sz: word.length};
-                                }).filter( function(d){
+                                }).filter(function(d) {
                                   return d.col !== -1;  // Remove not found rows
-                                }).filter( function(d){
-                                    return d.row > fromRow || (d.row === fromRow && d.col >= fromCol);
+                                }).filter(function(d) {
+                                  return d.row > fromRow || (d.row === fromRow && d.col >= fromCol);
                                 });
       return locations;
     };
@@ -108,7 +108,7 @@ angular.module('qlocktwoAngularApp')
       var sz = locations[0].sz;
 
       // Update letter grid
-      for( var j = 0; j < sz; j++){
+      for (var j = 0; j < sz; j++) {
         LetterGridService.grid[foundRow][foundCol + j].selected = true;
       }
 
@@ -116,9 +116,9 @@ angular.module('qlocktwoAngularApp')
       $scope.grid = LetterGridService.grid;
 
       // Check if the column index overflowed
-      if ( foundCol + sz >= LetterGridService.numCols ) {
+      if (foundCol + sz >= LetterGridService.numCols) {
         return {row: foundRow + 1, col: 0};
-      } else{
+      } else {
         return {row: foundRow, col: foundCol + sz};
       }
     };

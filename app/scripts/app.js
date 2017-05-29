@@ -18,7 +18,7 @@ angular
     'ngTouch',
     'FBAngular'
   ])
-  .config(function ($routeProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/about', {
         templateUrl: 'views/about.html',

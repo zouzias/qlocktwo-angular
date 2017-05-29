@@ -9,7 +9,7 @@
  * Service in the qlocktwoAngularApp. Letter grid model. Contains the state of the letter grid, i.e., which cells are highlighted, etc
  */
 angular.module('qlocktwoAngularApp')
-  .service('LetterGridService', function () {
+  .service('LetterGridService', function() {
 
     var grid = ['NSEVENFOURC', 'FELEVENOTWO', 'TWELVEFIVEV', 'TEIGHTENONE', 'TNINETHREEL',
     'SIXHALFIFTY', 'EFORTYYPAST', 'OFTHIRTYTEN', 'TOTWENTYSIX', 'TWCLOCKFIVE', 'FIFTEENTONE'];
@@ -18,9 +18,9 @@ angular.module('qlocktwoAngularApp')
     var numCols = grid[0].length;
 
     // Convert grid to array of arrays and select random cells
-    var finalGrid = grid.map(function(row){
+    var finalGrid = grid.map(function(row) {
       return row.split('')
-                .map(function(d){
+                .map(function(d) {
                   return {char: d, selected: Math.random() > 0.5};
                 });
     });

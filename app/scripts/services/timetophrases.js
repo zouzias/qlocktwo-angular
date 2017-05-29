@@ -10,7 +10,7 @@
  * you must also update the content of the LetterGridService
  */
 angular.module('qlocktwoAngularApp')
-  .service('TimeToPhrases', function () {
+  .service('TimeToPhrases', function() {
 
     // Here put your words for hours
     var hours = [{hour: 1, word: 'one'},
