@@ -56,7 +56,7 @@ angular.module('qlocktwoAngularApp')
     * Resets letter grid
     */
     $scope.resetGrid = function(){
-      LetterGridService.grid = LetterGridService.grid.map(function(d){
+      LetterGridService.grid = LetterGridService.grid.map(function(d) {
         return d.map(function(l){
           return {char: l.char, selected: false};
         });
@@ -74,8 +74,8 @@ angular.module('qlocktwoAngularApp')
      * @param fromCol Start column location (0-indexed)
        * @returns {*} Array of objects: {row: XXX, col: XXX, sz: XXX} containing locations of found locations
        */
-    $scope.findWord = function(searchGrid, word, fromRow, fromCol){
-      var locations = searchGrid.map(function(row, i) {
+    $scope.findWord = function(searchGrid, word, fromRow, fromCol) {
+      return searchGrid.map(function(row, i) {
                                   var col = row.indexOf(word.toUpperCase());
                                   return {row: i, col: col, sz: word.length};
                                 }).filter(function(d) {
@@ -83,7 +83,6 @@ angular.module('qlocktwoAngularApp')
                                 }).filter(function(d) {
                                   return d.row > fromRow || (d.row === fromRow && d.col >= fromCol);
                                 });
-      return locations;
     };
 
     /**
@@ -96,7 +95,7 @@ angular.module('qlocktwoAngularApp')
      * @param fromCol Column index to start search (given about row index)
        * @returns {*} A location {row: XXX, col: XXX} from which the following possible word can be searched
        */
-    $scope.highlightWord = function(word, fromRow, fromCol){
+    $scope.highlightWord = function(word, fromRow, fromCol) {
       var locations = $scope.findWord(LetterGridService.searchGrid, word, fromRow, fromCol);
 
       if (locations.length === 0) {
