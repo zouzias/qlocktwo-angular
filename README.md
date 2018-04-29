@@ -8,6 +8,12 @@ Click on the Qlocktwo for fullscreen. Best viewed using `Firefox`.
 
 ## Build & development
 
+
+```
+bower install
+npm install
+```
+
 Run `grunt` for building and `grunt serve` for preview. 
 
 ## See also
