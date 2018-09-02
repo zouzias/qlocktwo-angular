@@ -1,4 +1,4 @@
-## qlocktwo-angular
+## qlocktwo-angular [![Build Status](https://travis-ci.org/zouzias/qlocktwo-angular.svg?branch=master)](https://travis-ci.org/zouzias/qlocktwo-angular)
 
 A [Qlocktwo](http://www.qlocktwo.com) front end in [Angular](https://angularjs.org) that displays current time using English words.
 
