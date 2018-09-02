@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // See https://stackoverflow.com/questions/32961124/warning-connect-static-is-not-a-function-use-force-to-continue
   var serveStatic = require('serve-static');
@@ -109,7 +109,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           port: 9001,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               serveStatic('.tmp'),
               serveStatic('test'),
@@ -219,17 +219,17 @@ module.exports = function (grunt) {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
         ignorePath:  /\.\.\//,
-        fileTypes:{
+        fileTypes: {
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
+            detect: {
                 js: /'(.*\.js)'/gi
               },
-              replace: {
+            replace: {
                 js: '\'{{filePath}}\','
               }
-            }
           }
+        }
       }
     },
 
