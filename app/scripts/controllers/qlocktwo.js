@@ -8,7 +8,7 @@
  * Controller of the qlocktwoAngularApp
  */
 angular.module('qlocktwoAngularApp')
-  .controller('QlocktwoCtrl', function ($rootScope, $scope, LetterGridService, CurrentTimeService) {
+  .controller('QlocktwoCtrl', function($rootScope, $scope, LetterGridService, CurrentTimeService) {
 
     $scope.grid = LetterGridService.grid;
 

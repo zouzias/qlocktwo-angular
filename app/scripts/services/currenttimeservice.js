@@ -15,7 +15,7 @@ angular.module('qlocktwoAngularApp')
 
     var minutes = TimeToPhrases.minutes;
     var hours = TimeToPhrases.hours;
-    var currentTimeState = {now: new Date(), indexHour: 0, indexMinute: 0, hours: hours, minutes: minutes};
+    var currentTimeState = {now: new Date(),indexHour: 0, indexMinute: 0, hours: hours, minutes: minutes};
 
     /**
      * Emit event to qlocktwo controller

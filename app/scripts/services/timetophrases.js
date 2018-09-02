@@ -4,7 +4,7 @@
  * @ngdoc service
  * @name qlocktwoAngularApp.TimeToPhrases
  * @description
- * # TimeToPhrases
+ * Convert time to phrases
  * Service in the qlocktwoAngularApp. Contains a mapping from time to time phrases, i.e., 7:30 corresponds to
  * "SEVEN", "THIRTY". You can update this to your favourite language. Note that
  * you must also update the content of the LetterGridService
@@ -25,18 +25,18 @@ angular.module('qlocktwoAngularApp')
                  {hour: 10, word: 'ten'},
                  {hour: 11, word: 'eleven'},
                  {hour: 12, word: 'twelve'},
-                  {hour: 13, word: 'one'},
-                  {hour: 14, word: 'two'},
-                  {hour: 15, word: 'three'},
-                  {hour: 16, word: 'four'},
-                  {hour: 17, word: 'five'},
-                  {hour: 18, word: 'six'},
-                  {hour: 19, word: 'seven'},
-                  {hour: 20, word: 'eight'},
-                  {hour: 21, word: 'nine'},
-                  {hour: 22, word: 'ten'},
-                  {hour: 23, word: 'eleven'},
-                  {hour: 24, word: 'twelve'}];
+                 {hour: 13, word: 'one'},
+                 {hour: 14, word: 'two'},
+                 {hour: 15, word: 'three'},
+                 {hour: 16, word: 'four'},
+                 {hour: 17, word: 'five'},
+                 {hour: 18, word: 'six'},
+                 {hour: 19, word: 'seven'},
+                 {hour: 20, word: 'eight'},
+                 {hour: 21, word: 'nine'},
+                 {hour: 22, word: 'ten'},
+                 {hour: 23, word: 'eleven'},
+                 {hour: 24, word: 'twelve'}];
 
     // Here put your word for minutes
     // This will be displayed if time is in interval [start, end]
