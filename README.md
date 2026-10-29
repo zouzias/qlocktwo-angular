@@ -62,6 +62,29 @@ python3 -m http.server 8080 --directory dist
 
 and then open http://localhost:8080.
 
+### Building with Docker
+
+If you have [Docker](https://www.docker.com) but don't want to install Node.js,
+Bower, Grunt or Chrome locally, run:
+
+```
+./docker-build.sh
+```
+
+This lints, tests and builds the application inside a container (see
+`Dockerfile`) and copies the result to `dist/`. Pass a directory as the first
+argument to write the output somewhere else.
+
+To serve the application from Docker instead:
+
+| Command                  | Description                                                                                  |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| `./docker-serve.sh`      | Build and serve the production bundle with nginx on http://localhost:8080                    |
+| `./docker-dev.sh`        | Run the `grunt serve` development server on http://localhost:9000, reloading on edits in `app/` |
+
+Both scripts take an optional port as the first argument, e.g. `./docker-serve.sh 3000`.
+Press `Ctrl+C` to stop the server.
+
 ### Other commands
 
 | Command      | Description                                        |
