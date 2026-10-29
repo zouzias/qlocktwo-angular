@@ -2,6 +2,8 @@
 
 A [Qlocktwo](http://www.qlocktwo.com) front end in [AngularJS](https://angularjs.org) that displays the current time using English words.
 
+**▶ Try it live: [qlocktwo-angular.onrender.com](https://qlocktwo-angular.onrender.com)** — no installation needed.
+
 Click on the Qlocktwo to toggle fullscreen.
 
 ## Requirements
@@ -88,7 +90,8 @@ Press `Ctrl+C` to stop the server.
 ### Deploying to Render
 
 The app deploys to [Render](https://render.com) as a static site, configured in
-`render.yaml`:
+`render.yaml`. The live deployment is at
+https://qlocktwo-angular.onrender.com. To deploy your own copy:
 
 1. In the Render dashboard, choose **New > Blueprint** and select this repository.
 2. Render builds with `./render-build.sh` (installs dependencies and runs
