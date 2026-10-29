@@ -1,9 +1,0 @@
-sudo: false
-language: node_js
-node_js:
-  - 'node'
-before_install: npm install -g bower grunt-cli
-install: 
-  - bower install
-  - npm install
-before_script: grunt
