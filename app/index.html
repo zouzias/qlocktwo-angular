@@ -2,8 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
+    <title>QLOCKTWO EARTH</title>
+    <meta name="description" content="A QLOCKTWO EARTH word clock in AngularJS">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -15,7 +17,6 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/bootstrap_darkly_override.css">
     <!-- endbuild -->
   </head>
   <body ng-app="qlocktwoAngularApp">
@@ -23,10 +24,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container-fluid fill">
-    <div ng-view=""></div>
+    <div class="app">
+      <div class="view" ng-view=""></div>
 
-      <div class="footer text-center small">
+      <div class="footer">
         <p>Made by <a href="http://github.com/zouzias/">Anastasios Zouzias</a>
         </p>
       </div>
