@@ -12,22 +12,62 @@ Click on the Qlocktwo to toggle fullscreen.
 
 ## Build & development
 
-Install the dependencies:
+### 1. Install the dependencies
+
+From the repository root:
 
 ```
 bower install
 npm install
 ```
 
-Then:
+`bower install` puts the front-end libraries (AngularJS, Bootstrap, d3, ...) in
+`bower_components/`, and `npm install` puts the build tooling in `node_modules/`.
 
-| Command            | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `grunt serve`      | Start a dev server with live reload on http://localhost:9000 |
-| `grunt test`       | Run the Karma/Jasmine unit tests (also `npm test`)           |
-| `grunt build`      | Build the production bundle into `dist/`                     |
-| `grunt serve:dist` | Build and serve the production bundle                        |
-| `grunt`            | Lint, test and build (what CI runs)                          |
+### 2. Serve the application for development
+
+```
+grunt serve
+```
+
+This starts a development server on http://localhost:9000 and opens it in your
+browser. Grunt watches the files under `app/` and reloads the page when you
+change them. Press `Ctrl+C` to stop the server.
+
+The server listens on `0.0.0.0`, so other devices on your network can also open
+it at `http://<your-ip>:9000`.
+
+### 3. Build the application for production
+
+```
+grunt build
+```
+
+The minified, production-ready application is written to `dist/`.
+
+### 4. Serve the production build
+
+To build and preview the production bundle on http://localhost:9000:
+
+```
+grunt serve:dist
+```
+
+The `dist/` folder contains only static files, so you can also serve it with any
+static web server, for example:
+
+```
+python3 -m http.server 8080 --directory dist
+```
+
+and then open http://localhost:8080.
+
+### Other commands
+
+| Command      | Description                                        |
+| ------------ | -------------------------------------------------- |
+| `grunt test` | Run the Karma/Jasmine unit tests (also `npm test`) |
+| `grunt`      | Lint, test and build (what CI runs)                |
 
 ## Project layout
 
