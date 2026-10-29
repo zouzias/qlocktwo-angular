@@ -53,15 +53,22 @@ module.exports = function(config) {
     // - Firefox
     // - Opera
     // - Safari (only Mac)
-    // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      "PhantomJS"
+      "ChromeHeadlessNoSandbox"
     ],
+
+    // Headless Chrome without the sandbox, so tests also run in containers/CI
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox"]
+      }
+    },
 
     // Which plugins to enable
     plugins: [
-      "karma-phantomjs-launcher",
+      "karma-chrome-launcher",
       "karma-jasmine"
     ],
 
