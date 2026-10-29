@@ -1,12 +1,24 @@
-<div class="row-fluid" fullscreen>
-  <table class="table table-responsive fill">
-      <tbody>
-          <tr ng-repeat="row in grid">
-              <td ng-repeat="c in row track by $index">
-                <div class="text-center letter-font" ng-style="{opacity : (c.selected && '1') || '0.15'}">
-                  {{c.char}}
-                </div>
-              </td>
-          </tr>
-  </table>
+<div class="stage">
+  <div class="qlocktwo" ng-class="'finish-' + finish.id" fullscreen>
+    <span class="minute-dot top-left" ng-class="{lit: dots[0]}"></span>
+    <span class="minute-dot top-right" ng-class="{lit: dots[1]}"></span>
+    <span class="minute-dot bottom-right" ng-class="{lit: dots[2]}"></span>
+    <span class="minute-dot bottom-left" ng-class="{lit: dots[3]}"></span>
+
+    <div class="letters">
+      <div class="letter-row" ng-repeat="row in grid">
+        <span class="letter" ng-repeat="c in row track by $index" ng-class="{lit: c.selected}">{{c.char}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption">
+    <h1>QLOCKTWO <span>EARTH</span></h1>
+    <p class="finish-name">{{finish.name}}</p>
+    <div class="finishes">
+      <button type="button" class="swatch" ng-repeat="f in finishes"
+              ng-class="['swatch-' + f.id, {active: f === finish}]"
+              ng-click="selectFinish(f)" title="{{f.name}}" aria-label="{{f.name}}"></button>
+    </div>
+  </div>
 </div>

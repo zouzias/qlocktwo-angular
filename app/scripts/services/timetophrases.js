@@ -5,49 +5,49 @@
  * @name qlocktwoAngularApp.TimeToPhrases
  * @description
  * Convert time to phrases
- * Service in the qlocktwoAngularApp. Contains a mapping from time to time phrases, i.e., 7:30 corresponds to
- * "SEVEN", "THIRTY". You can update this to your favourite language. Note that
- * you must also update the content of the LetterGridService
+ * Service in the qlocktwoAngularApp. Maps a time to the words lit on the QLOCKTWO front, e.g., 7:32 corresponds
+ * to "IT IS HALF PAST SEVEN" plus two minute dots. Word names refer to LetterGridService.words, so if you
+ * change the language you must also update the LetterGridService.
  */
 angular.module('qlocktwoAngularApp')
   .service('TimeToPhrases', function() {
 
-    // Here put your words for hours
-    var hours = [{hour: 1, word: 'one'},
-                 {hour: 2, word: 'two'},
-                 {hour: 3, word: 'three'},
-                 {hour: 4, word: 'four'},
-                 {hour: 5, word: 'five'},
-                 {hour: 6, word: 'six'},
-                 {hour: 7, word: 'seven'},
-                 {hour: 8, word: 'eight'},
-                 {hour: 9, word: 'nine'},
-                 {hour: 10, word: 'ten'},
-                 {hour: 11, word: 'eleven'},
-                 {hour: 12, word: 'twelve'},
-                 {hour: 13, word: 'one'},
-                 {hour: 14, word: 'two'},
-                 {hour: 15, word: 'three'},
-                 {hour: 16, word: 'four'},
-                 {hour: 17, word: 'five'},
-                 {hour: 18, word: 'six'},
-                 {hour: 19, word: 'seven'},
-                 {hour: 20, word: 'eight'},
-                 {hour: 21, word: 'nine'},
-                 {hour: 22, word: 'ten'},
-                 {hour: 23, word: 'eleven'},
-                 {hour: 24, word: 'twelve'}];
+    // Hour words, indexed by hour modulo 12
+    var hours = ['twelve', 'one', 'two', 'three', 'four', 'five',
+                 'six', 'seven', 'eight', 'nine', 'ten', 'eleven'];
 
-    // Here put your word for minutes
-    // This will be displayed if time is in interval [start, end]
-    var minutes = [{start: 0, end:  5, word: 'clock'},
-                  {start:  5, end:  9, word: 'five'},
-                  {start: 10, end: 14, word: 'ten'},
-                  {start: 15, end: 19, word: 'fifteen'},
-                  {start: 20, end: 29, word: 'twenty'},
-                  {start: 30, end: 39, word: 'thirty'},
-                  {start: 40, end: 49, word: 'forty'},
-                  {start: 50, end: 59, word: 'fifty'}];
+    // Words for each five minute block; nextHour is true when the phrase counts down to the next hour
+    var minutes = [{start:  0, words: ['oclock'],                       nextHour: false},
+                   {start:  5, words: ['fiveMinute', 'past'],           nextHour: false},
+                   {start: 10, words: ['tenMinute', 'past'],            nextHour: false},
+                   {start: 15, words: ['a', 'quarter', 'past'],         nextHour: false},
+                   {start: 20, words: ['twenty', 'past'],               nextHour: false},
+                   {start: 25, words: ['twenty', 'fiveMinute', 'past'], nextHour: false},
+                   {start: 30, words: ['half', 'past'],                 nextHour: false},
+                   {start: 35, words: ['twenty', 'fiveMinute', 'to'],   nextHour: true},
+                   {start: 40, words: ['twenty', 'to'],                 nextHour: true},
+                   {start: 45, words: ['a', 'quarter', 'to'],           nextHour: true},
+                   {start: 50, words: ['tenMinute', 'to'],              nextHour: true},
+                   {start: 55, words: ['fiveMinute', 'to'],             nextHour: true}];
 
-    return {hours: hours, minutes: minutes};
+    /**
+     * @param date The time to display
+     * @returns {*} {words: [...], dots: n} with the words to light and the number of minute dots (0-4)
+     */
+    var phrasesFor = function(date) {
+      var minute = date.getMinutes();
+      var block = minutes[Math.floor(minute / 5)];
+      var hour = hours[(date.getHours() + (block.nextHour ? 1 : 0)) % 12];
+      var words = ['it', 'is'];
+
+      if (block.start === 0) {
+        words.push(hour, 'oclock');
+      } else {
+        words = words.concat(block.words, [hour]);
+      }
+
+      return {words: words, dots: minute % 5};
+    };
+
+    return {hours: hours, minutes: minutes, phrasesFor: phrasesFor};
   });
