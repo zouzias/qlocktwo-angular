@@ -17,7 +17,27 @@ describe('Controller: QlocktwoCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.grid.length).toBe(11);
+  it('should attach the letter grid to the scope', function () {
+    expect(scope.grid.length).toBe(10);
+  });
+
+  it('should light the letters and minute dots of the current time', function () {
+    scope.currentTime = new Date(2026, 0, 1, 19, 47);
+    scope.updateTimePhrases();
+
+    var lit = scope.grid.map(function(row) {
+      return row.map(function(c) { return c.selected ? c.char : ' '; }).join('');
+    });
+    expect(lit).toEqual(['IT IS      ',
+                         'A QUARTER  ',
+                         '           ',
+                         '         TO',
+                         '           ',
+                         '           ',
+                         '           ',
+                         'EIGHT      ',
+                         '           ',
+                         '           ']);
+    expect(scope.dots).toEqual([true, true, false, false]);
   });
 });

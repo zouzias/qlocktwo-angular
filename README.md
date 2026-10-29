@@ -85,6 +85,22 @@ To serve the application from Docker instead:
 Both scripts take an optional port as the first argument, e.g. `./docker-serve.sh 3000`.
 Press `Ctrl+C` to stop the server.
 
+### Deploying to Render
+
+The app deploys to [Render](https://render.com) as a static site, configured in
+`render.yaml`:
+
+1. In the Render dashboard, choose **New > Blueprint** and select this repository.
+2. Render builds with `./render-build.sh` (installs dependencies and runs
+   `grunt build`) and publishes `dist/`.
+
+Pushes to `master` are deployed automatically once CI passes. To trigger a
+deploy by hand, copy the deploy hook URL from the service's settings and run:
+
+```
+RENDER_DEPLOY_HOOK_URL=https://api.render.com/deploy/srv-... ./render-deploy.sh
+```
+
 ### Other commands
 
 | Command      | Description                                        |

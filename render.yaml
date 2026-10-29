@@ -1,0 +1,24 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Deploys the production build (dist/) as a static site.
+services:
+  - type: web
+    name: qlocktwo-angular
+    runtime: static
+    buildCommand: ./render-build.sh
+    staticPublishPath: dist
+    # Deploy only after the CI checks on master pass
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: NODE_VERSION
+        value: lts
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      # filerev adds content hashes to these, so they can be cached forever
+      - path: /scripts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /styles/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
